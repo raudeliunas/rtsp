@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - ./html:/var/www/html
+      - ./certs:/etc/nginx/certs
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./certs:/var/www/html/certs
+    ports:
+      - "443:443"
+    depends_on:
+      - vlc_stream
+
+  vlc_stream:
+    container_name: vlc_stream
+    build:
+      context: .
+      dockerfile: Dockerfile.vlc
+    environment:
+      - RTSP_URL=${RTSP_URL}
+      - STREAM_PORT=${STREAM_PORT}
+    ports:
+      - "8080:8080"
+
+  watchdog:
+    build:
+      context: .
+      dockerfile: Dockerfile.watchdog
+    environment:
+      - TARGET_CONTAINER=vlc_stream
+    depends_on:
+      - vlc_stream
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
