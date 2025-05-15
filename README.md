@@ -84,5 +84,12 @@ Onde 192.168.1.100 é o endereço IP do servidor onde o Docker está rodando.
 
 Após a configuração, o nome cameras será resolvido para o IP correto, permitindo que você acesse o stream via https://cameras no seu navegador.
 
+##Configuração da camera
+
+Este projeto foi configurado para transmitir vídeo via HTTPS com resolução de 640x480 a 5 FPS.
+
+Para melhor desempenho e menor uso de CPU, recomenda-se ajustar a configuração da câmera para uma resolução próxima a 640x480 com taxa de quadros reduzida (como 5 FPS). Resoluções ou taxas de quadros mais altas exigirão mais recursos do sistema durante o processo de conversão de vídeo.
+
+
 ##Licença
 Este projeto é licenciado sob a MIT License - veja o arquivo LICENSE para mais detalhes.
